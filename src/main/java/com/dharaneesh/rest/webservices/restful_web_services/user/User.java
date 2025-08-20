@@ -1,5 +1,7 @@
 package com.dharaneesh.rest.webservices.restful_web_services.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
@@ -8,14 +10,26 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "USER_DETAILS")
 public class User {
 
+    protected User() {
+
+    }
+
+    @Id
+    @GeneratedValue
     private int id;
 
     @NotBlank(message = "Name is Required")
+//    @JsonProperty("user_name")
+    @Column(name = "NAME")
     private String name;
 
     @Past(message = "BirthDate Should be Always be Past")
+//    @JsonProperty("birth_date")
+    @Column(name = "DATE_OF_BIRTH")
     private LocalDate dateOfBirth;
 
     public User(int id, String name, LocalDate dateOfBirth) {
