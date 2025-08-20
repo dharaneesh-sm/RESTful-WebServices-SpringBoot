@@ -1,5 +1,6 @@
 package com.dharaneesh.rest.webservices.restful_web_services.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -9,14 +10,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "USER_DETAILS")
 public class User {
 
-    protected User() {
-
-    }
+    protected User() {}
 
     @Id
     @GeneratedValue
@@ -31,6 +31,10 @@ public class User {
 //    @JsonProperty("birth_date")
     @Column(name = "DATE_OF_BIRTH")
     private LocalDate dateOfBirth;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
 
     public User(int id, String name, LocalDate dateOfBirth) {
         this.id = id;
